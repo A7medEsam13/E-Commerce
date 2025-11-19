@@ -19,6 +19,11 @@ namespace E_Commerce.Infrastructure.Data.config
                    .WithOne(p => p.Category)
                    .HasForeignKey(p => p.CategoryId)
                    .OnDelete(DeleteBehavior.Cascade);
+
+            // seeding some data.
+            builder.HasData(
+                new Category { Id = 1, Name = "LabTop", Description = "Electrnic devices." }
+                );
         }
     }
 }

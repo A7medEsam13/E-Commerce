@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce.Core.Entities.Product
 {
-    public class Photo
+    public class Photo : BaseEntity<int>
     {
         public string Name { get; set; }
         public int ProductId { get; set; }

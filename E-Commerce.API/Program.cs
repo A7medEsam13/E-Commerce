@@ -11,12 +11,16 @@ builder.Services.AddOpenApi();
 // Register Infrastructure layer services.
 builder.Services.InfrastructureConfiguration(builder.Configuration);
 
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseAuthorization();
