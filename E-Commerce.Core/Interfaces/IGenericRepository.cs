@@ -15,6 +15,6 @@ namespace E_Commerce.Core.Interfaces
         Task<T> GetByIdAsync(int id, params Expression<Func<T, object>>[] includes);
         Task AddAsync(T entity);
         void Update(T entity);
-        Task Delete(int id);
+        Task DeleteAsync(int id);
     }
 }

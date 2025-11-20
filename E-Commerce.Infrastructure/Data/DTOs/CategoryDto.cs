@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace E_Commerce.Infrastructure.Data.DTOs
 {
-    public record CategoryDto
-    {
-        public string Name { get; set; }
-        public string Description { get; set; }
-    }
+    public record CategoryDto(string Name, string Description);
+    public record UpdateCategoryDto(string Name, string Description, int Id);
 }

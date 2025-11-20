@@ -1,4 +1,6 @@
-﻿using E_Commerce.Core.Interfaces;
+﻿using E_Commerce.Core.Entities.Product;
+using E_Commerce.Core.Interfaces;
+using E_Commerce.Infrastructure.Data.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,7 +34,7 @@ namespace E_Commerce.API.Controllers
             }
             catch (Exception e)
             {
-                throw e;
+                return BadRequest(e.Message);
             }
         }
 
@@ -55,8 +57,68 @@ namespace E_Commerce.API.Controllers
             }
             catch (Exception e)
             {
+                return BadRequest(e.Message);
+            }
+        }
 
-                throw e;
+
+        [HttpPost("create")]
+        public async Task<IActionResult> Create(CategoryDto dto)
+        {
+            try
+            {
+                var category = new Category
+                {
+                    Name = dto.Name,
+                    Description = dto.Description
+                };
+
+                await _unitOfWork.Categories.AddAsync(category);
+                await _unitOfWork.CompleteAsync();
+
+                return Ok(new { message = "Item has been added" });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
+        [HttpPut("update-category")]
+        public async Task<IActionResult> Update(UpdateCategoryDto dto)
+        {
+            try
+            {
+                var category = new Category
+                {
+                    Id = dto.Id,
+                    Name = dto.Name,
+                    Description = dto.Description
+                };
+                _unitOfWork.Categories.Update(category);
+                await _unitOfWork.CompleteAsync();
+
+                return Ok(new { message = "Item has been updated" });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete("delete")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _unitOfWork.Categories.DeleteAsync(id);
+                await _unitOfWork.CompleteAsync();
+                return Ok(new { message = "Item has been deleted" });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
     }

@@ -24,7 +24,7 @@ namespace E_Commerce.Infrastructure.Repositries
             await _context.Set<T>().AddAsync(entity);
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var entity = await _context.Set<T>().FindAsync(id);
             _context.Set<T>().Remove(entity);
