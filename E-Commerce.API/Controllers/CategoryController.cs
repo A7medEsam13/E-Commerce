@@ -1,4 +1,6 @@
-﻿using E_Commerce.Core.Entities.Product;
+﻿using AutoMapper;
+using E_Commerce.API.Helper;
+using E_Commerce.Core.Entities.Product;
 using E_Commerce.Core.Interfaces;
 using E_Commerce.Infrastructure.Data.DTOs;
 using Microsoft.AspNetCore.Http;
@@ -11,10 +13,13 @@ namespace E_Commerce.API.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public CategoryController(IUnitOfWork unitOfWork)
+        public CategoryController(IUnitOfWork unitOfWork, 
+            IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [HttpGet("get-all")]
@@ -28,13 +33,13 @@ namespace E_Commerce.API.Controllers
                 // check if the categories are null?
                 if(categories is null)
                 {
-                    return BadRequest();
+                    return BadRequest(new ResponseAPI(400));
                 }
                 return Ok(categories);
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(new ResponseAPI(400, e.Message));
             }
         }
 
@@ -50,14 +55,14 @@ namespace E_Commerce.API.Controllers
                 // check the nullability.
                 if (category is null)
                 {
-                    return BadRequest();
+                    return BadRequest(new ResponseAPI(400, $"Category with id {id} not found."));
                 }
 
                 return Ok(category);
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(new ResponseAPI(400, e.Message));
             }
         }
 
@@ -67,20 +72,16 @@ namespace E_Commerce.API.Controllers
         {
             try
             {
-                var category = new Category
-                {
-                    Name = dto.Name,
-                    Description = dto.Description
-                };
+                var category = _mapper.Map<Category>(dto);
 
                 await _unitOfWork.Categories.AddAsync(category);
                 await _unitOfWork.CompleteAsync();
 
-                return Ok(new { message = "Item has been added" });
+                return Ok(new ResponseAPI(200,"new category has been added."));
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(new ResponseAPI(400, e.Message));
             }
         }
 
@@ -90,20 +91,15 @@ namespace E_Commerce.API.Controllers
         {
             try
             {
-                var category = new Category
-                {
-                    Id = dto.Id,
-                    Name = dto.Name,
-                    Description = dto.Description
-                };
+                var category = _mapper.Map<Category>(dto);
                 _unitOfWork.Categories.Update(category);
                 await _unitOfWork.CompleteAsync();
 
-                return Ok(new { message = "Item has been updated" });
+                return Ok(new ResponseAPI(200, "Item has been updated"));
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(new ResponseAPI(400, e.Message));
             }
         }
 
@@ -114,11 +110,11 @@ namespace E_Commerce.API.Controllers
             {
                 await _unitOfWork.Categories.DeleteAsync(id);
                 await _unitOfWork.CompleteAsync();
-                return Ok(new { message = "Item has been deleted" });
+                return Ok(new ResponseAPI(200, "Item has been deleted"));
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(new ResponseAPI(400, e.Message));
             }
         }
     }

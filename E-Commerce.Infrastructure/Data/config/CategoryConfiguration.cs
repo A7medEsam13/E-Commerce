@@ -15,10 +15,6 @@ namespace E_Commerce.Infrastructure.Data.config
         {
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Name).IsRequired().HasMaxLength(100);
-            builder.HasMany(c => c.Products)
-                   .WithOne(p => p.Category)
-                   .HasForeignKey(p => p.CategoryId)
-                   .OnDelete(DeleteBehavior.Cascade);
 
             // seeding some data.
             builder.HasData(

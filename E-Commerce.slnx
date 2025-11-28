@@ -3,5 +3,6 @@
     <Project Path="E-Commerce.API/E-Commerce.API.csproj" />
     <Project Path="E-Commerce.Core/E-Commerce.Core.csproj" />
     <Project Path="E-Commerce.Infrastructure/E-Commerce.Infrastructure.csproj" />
+    <Project Path="E-Commerce.Logging/E-Commerce.Logging.csproj" Id="f24731b2-9603-4549-8c7c-8a4bb2ae51f0" />
   </Folder>
 </Solution>

@@ -1,4 +1,6 @@
 using E_Commerce.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 // Register Infrastructure layer services.
-builder.Services.InfrastructureConfiguration(builder.Configuration);
+builder.Services.InfrastructureConfiguration(builder.Configuration); 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
 
 builder.Services.AddSwaggerGen();
 
