@@ -9,7 +9,7 @@ namespace E_Commerce.Core.Services
 {
     public interface IImageManagementService
     {
-        Task<List<string>> UploadImageAsync(IFormFileCollection files, string src);
-        void DeleteImageasync(string src);
+         Task<List<string>> UploadImageAsync(IFormFileCollection files, string src);
+         void DeleteImageasync(string src);
     }
 }

@@ -1,11 +1,6 @@
 ﻿using E_Commerce.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace E_Commerce.Infrastructure.Repositries.Services
 {

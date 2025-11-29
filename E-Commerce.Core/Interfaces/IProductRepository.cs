@@ -1,13 +1,10 @@
 ﻿using E_Commerce.Core.Entities.Product;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using E_Commerce.Infrastructure.Data.DTOs;
 
 namespace E_Commerce.Core.Interfaces
 {
     public interface IProductRepository : IGenericRepository<Product>
     {
+        public Task<bool> AddAsync(AddProductDto dto);
     }
 }

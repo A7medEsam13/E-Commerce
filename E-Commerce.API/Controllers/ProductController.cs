@@ -70,12 +70,11 @@ namespace E_Commerce.API.Controllers
 
         // create product endpoint.
         [HttpPost("create-product")]
-        public async Task<IActionResult> CreateProduct(ProductDto dto)
+        public async Task<IActionResult> CreateProduct(AddProductDto dto)
         {
             try
             {
-                var product = _mapper.Map<Product>(dto);
-                await _unitOfWork.Products.AddAsync(product);
+                await _unitOfWork.Products.AddAsync(dto);
                 await _unitOfWork.CompleteAsync();
 
                 return Ok(new ResponseAPI(201, "product has been created."));

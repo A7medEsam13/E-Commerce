@@ -9,6 +9,9 @@ namespace E_Commerce.API.Mapping
         public ProductMapper()
         {
             CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<Product, AddProductDto>()
+                .ForMember(dest => dest.Photos, opt => opt.Ignore())
+                .ReverseMap();
         }
     }
 }
