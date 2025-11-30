@@ -33,7 +33,8 @@ namespace E_Commerce.Infrastructure.Repositries
                 Name = dto.Name,
                 Description = dto.Description,
                 OldPrice = dto.OldPrice,
-                NewPrice = dto.NewPrice
+                NewPrice = dto.NewPrice,
+                CategoryId = dto.CategoryId
             };
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
@@ -48,6 +49,7 @@ namespace E_Commerce.Infrastructure.Repositries
             }).ToList();
 
             await _context.Photos.AddRangeAsync(photo);
+            await _context.SaveChangesAsync();
             return true;
 
         }

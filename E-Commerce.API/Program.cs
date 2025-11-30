@@ -12,11 +12,11 @@ builder.Services.AddOpenApi();
 
 // Register Infrastructure layer services.
 builder.Services.InfrastructureConfiguration(builder.Configuration); 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(cfg=>cfg.AddMaps(typeof(Program).Assembly));
 
 
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(); 
 
 var app = builder.Build();
 
@@ -27,6 +27,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
 app.UseAuthorization();
 

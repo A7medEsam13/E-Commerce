@@ -7,9 +7,8 @@
     <RootNamespace>E_Commerce.API</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />   
+  <ItemGroup>   
+	<PackageReference Include="AutoMapper" Version="15.1.0" />   
 	<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.11">
       <PrivateAssets>all</PrivateAssets>
